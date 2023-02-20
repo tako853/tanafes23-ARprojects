@@ -36,8 +36,8 @@
             for (i=1; i <= 9; i++){
                 if(document.cookie.includes('tanafes'+ i)){
                     const input = i;
+					gridItems[i-1].style.backgroundColor = 'red';
                     alert(input);
-                    gridItems[i-1].style.backgroundColor = 'red';
                 }
             }
         }
