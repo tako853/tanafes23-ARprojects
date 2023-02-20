@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>stampcard_ar</title>
+		<script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+		<script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.7.2/aframe/build/aframe-ar.js"></script>
+		<style>
+			.grid {
+				display: grid;
+				grid-template-columns: repeat(3, 100px);
+				grid-template-rows: repeat(3, 100px);
+				gap: 10px;
+			}
+
+			.grid-item {
+				background-color: #ccc;
+			}
+
+			button{
+				position: absolute;
+				left:10px;
+				top:10px;
+			}
+
+		</style>
+	</head>
+	<body style="margin: 0; overflow: hidden;">
+		<a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+			<a-marker preset="hiro">
+			<!-- 1st tile -->
+			<a-plane position="-1 0 -1" rotation="-90 0 0" width="1" height="1" color="red" material="opacity:0.3" id="panel1"></a-plane>
+			<!-- 2nd tile -->
+			<a-plane position="0 0 -1" rotation="-90 0 0" width="1" height="1" color="green" material="opacity:0.3" id="panel2"></a-plane>
+			<!-- 3rd tile -->
+			<a-plane position="1 0 -1" rotation="-90 0 0" width="1" height="1" color="blue" material="opacity:0.3" id="panel3"></a-plane>
+			<!-- 4th tile -->
+			<a-plane position="-1 0 0" rotation="-90 0 0" width="1" height="1" color="yellow" material="opacity:0.3" id="panel4"></a-plane>
+			<!-- 5th tile -->
+			<a-plane position="0 0 0" rotation="-90 0 0" width="1" height="1" color="magenta" material="opacity:0.3" id="panel5"></a-plane>
+			<!-- 6th tile -->
+			<a-plane position="1 0 0" rotation="-90 0 0" width="1" height="1" color="cyan" material="opacity:0.3" id="panel6"></a-plane>
+			<!-- 7th tile -->
+			<a-plane position="-1 0 1" rotation="-90 0 0" width="1" height="1" color="orange" material="opacity:0.3" id="panel7"></a-plane>
+			<!-- 8th tile -->
+			<a-plane position="0 0 1" rotation="-90 0 0" width="1" height="1" color="purple" material="opacity:0.3" id="panel8"></a-plane>
+			<!-- 9th tile -->
+			<a-plane position="1 0 1" rotation="-90 0 0" width="1" height="1" color="gray" material="opacity:0.3" id="panel9"></a-plane>
+			</a-marker>
+			<a-entity camera></a-entity>
+		</a-scene>
+
+		<button onclick="changeColor()">反映</button>
+
+		<script>
+			function changeColor() {
+				for (i=1; i <= 9; i++){
+					if(document.cookie.includes('tanafes'+ i)){
+						var box = document.getElementById("panel" + i);
+						box.setAttribute("color", "white");
+						box.setAttribute("material", "opacity:1");
+						/*
+						alert(i);
+						*/
+					}
+				}
+			}
+		</script>
+	</body>
+</html>
