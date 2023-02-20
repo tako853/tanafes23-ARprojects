@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>QRコード読み取りプログラム</title>
+	<script src="https://cdn.rawgit.com/cozmo/jsQR/master/dist/jsQR.js"></script> <!-- jsQRライブラリの読み込み -->
+</head>
+<body>
+	<div id="camera"></div>
+    <div id="gotvalue"></div>
+    <script>
+        // ページが読み込まれた後に実行する
+        window.onload = function() {
+            // カメラからビデオストリームを取得する
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+                .then(function(stream) {
+                    // ビデオ要素を作成して、ストリームを設定する
+                    var video = document.createElement('video');
+                    video.srcObject = stream;
+                    video.setAttribute('playsinline', true); // iOS用
+                    video.play();
+    
+                    // ビデオが読み込まれたら実行する
+                    video.addEventListener('loadedmetadata', function() {
+                        // カメラ画像を表示するキャンバスを作成する
+                        var canvas = document.createElement('canvas');
+                        canvas.width = video.videoWidth;
+                        canvas.height = video.videoHeight;
+                        var context = canvas.getContext('2d');
+    
+                        // キャンバスを表示する要素を作成する
+                        var cameraView = document.createElement('div');
+                        cameraView.style.width = canvas.width + 'px';
+                        cameraView.style.height = canvas.height + 'px';
+                        cameraView.style.overflow = 'hidden';
+                        cameraView.appendChild(canvas);
+                        document.getElementById('camera').appendChild(cameraView);
+    
+                        // QRコードの読み取りを繰り返し実行する
+                        function scanQRCode() {
+                            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                            var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                            var code = jsQR(imageData.data, imageData.width, imageData.height, { inversionAttempts: "dontInvert" });
+                            if (code) {
+                                // QRコードが読み取れた場合、値を表示する
+                                var value = code.data;
+                                document.getElementById('gotvalue').innerHTML = "QRコードの値: " + value;
+
+                                if(value.includes('tanafes')){
+                                    document.cookie = value + "=true";
+                                    alert("Cookieに値を保存しました");
+                                }
+                            }
+                            requestAnimationFrame(scanQRCode); // 再帰的に処理を繰り返す
+                        }
+                        requestAnimationFrame(scanQRCode); // 最初の実行
+                    });
+                })
+                .catch(function(error) {
+                    // エラー処理
+                    document.getElementById('camera').innerHTML = "エラーが発生しました。" + error;
+                });
+        }
+    </script>
+    </body>
+    </html>

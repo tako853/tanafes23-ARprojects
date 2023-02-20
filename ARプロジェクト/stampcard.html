@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>マス目の色変更</title>
+	<style>
+		.grid {
+			display: grid;
+			grid-template-columns: repeat(3, 100px);
+			grid-template-rows: repeat(3, 100px);
+			gap: 10px;
+		}
+
+		.grid-item {
+			background-color: #ccc;
+		}
+	</style>
+</head>
+<body>
+	<button onclick="changeColor()">反映</button>
+
+	<div class="grid">
+		<div class="grid-item"></div>
+		<div class="grid-item"></div>
+		<div class="grid-item"></div>
+		<div class="grid-item"></div>
+		<div class="grid-item"></div>
+		<div class="grid-item"></div>
+		<div class="grid-item"></div>
+		<div class="grid-item"></div>
+		<div class="grid-item"></div>
+	</div>
+
+	<script>
+        function changeColor() {
+            const gridItems = document.querySelectorAll('.grid-item');
+            for (i=1; i <= 9; i++){
+                if(document.cookie.includes('tanafes'+ i)){
+                    const input = i;
+                    alert(input);
+                    gridItems[i-1].style.backgroundColor = 'red';
+                }
+            }
+        }
+    </script>
+</body>
+</html>
