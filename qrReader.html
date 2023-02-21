@@ -24,8 +24,8 @@
                     video.addEventListener('loadedmetadata', function() {
                         // カメラ画像を表示するキャンバスを作成する
                         var canvas = document.createElement('canvas');
-                        canvas.width = video.videoWidth;
-                        canvas.height = video.videoHeight;
+                        canvas.width = window.innerWidth - 20;
+                        canvas.height = canvas.width * (video.videoHeight/video.videoWidth);
                         var context = canvas.getContext('2d');
     
                         // キャンバスを表示する要素を作成する
