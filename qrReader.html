@@ -7,7 +7,7 @@
 </head>
 <body>
 	<div id="camera"></div>
-    <div id="gotvalue"></div>
+    <div id="gotvalue" style="font-size: larger;"></div>
     <script>
         // ページが読み込まれた後に実行する
         window.onload = function() {
@@ -44,8 +44,7 @@
                             if (code) {
                                 // QRコードが読み取れた場合、値を表示する
                                 var value = code.data;
-                                document.getElementById('gotvalue').innerHTML = "QRコードの値: " + value;
-
+                                document.getElementById('gotvalue').innerHTML += "QRコードの値: " + value + '<br>' ;
                                 if(value.includes('tanafes')){
                                     document.cookie = value + "=true";
                                     alert("Cookieに'"+ value +"'を保存しました");
