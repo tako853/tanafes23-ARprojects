@@ -48,7 +48,7 @@
 
                                 if(value.includes('tanafes')){
                                     document.cookie = value + "=true";
-                                    alert("Cookieに値を保存しました");
+                                    alert("Cookieに'"+ value +"'を保存しました");
                                 }
                             }
                             requestAnimationFrame(scanQRCode); // 再帰的に処理を繰り返す

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>stampcard_ar</title>
+		<script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+		<script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.7.2/aframe/build/aframe-ar.js"></script>
+		<style>
+			.reflect{
+				position: absolute;
+				left:10px;
+				top:10px;
+			}
+			.qr{
+				position: absolute;
+				left:70px;
+				top:10px;
+			}
+		</style>
+	</head>
+	<body style="margin: 0; overflow: hidden;">
+		<a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+			<a-marker preset="hiro">
+			<!-- 1st line -->
+			<a-image src="img/alice_stainedart_1.jpg" position="-1 0 -1.4" rotation="-90 0 0" width="1" height="1.4" id="panel1" material="opacity:0.1"></a-image>
+			<a-image src="img/alice_stainedart_2.jpg" position="0 0 -1.4" rotation="-90 0 0" width="1" height="1.4" id="panel2" material="opacity:0.1"></a-image>
+			<a-image src="img/alice_stainedart_3.jpg" position="1 0 -1.4" rotation="-90 0 0" width="1" height="1.4" id="panel3" material="opacity:0.1"></a-image>
+			<!-- 2nd line -->
+			<a-image src="img/alice_stainedart_4.jpg" position="-1 0 0" rotation="-90 0 0" width="1" height="1.4" id="panel4" material="opacity:0.1"></a-image>
+			<a-image src="img/alice_stainedart_5.jpg" position="0 0 0" rotation="-90 0 0" width="1" height="1.4" id="panel5" material="opacity:0.1"></a-image>
+			<a-image src="img/alice_stainedart_6.jpg" position="1 0 0" rotation="-90 0 0" width="1" height="1.4" id="panel6" material="opacity:0.1"></a-image>
+			<!-- 3rd line -->
+			<a-image src="img/alice_stainedart_7.jpg" position="-1 0 1.4" rotation="-90 0 0" width="1" height="1.4" id="panel7" material="opacity:0.1"></a-image>
+			<a-image src="img/alice_stainedart_8.jpg" position="0 0 1.4" rotation="-90 0 0" width="1" height="1.4" id="panel8" material="opacity:0.1"></a-image>
+			<a-image src="img/alice_stainedart_9.jpg" position="1 0 1.4" rotation="-90 0 0" width="1" height="1.4" id="panel9" material="opacity:0.1"></a-image>
+			</a-marker>
+			<a-entity camera></a-entity>
+		</a-scene>
+
+		<button class="reflect" onclick="reflect()">反映</button>
+		<button class="qr" onclick="location.href='/tanafes23-ARprojects/qrReader.html'">QRリーダー</button>
+
+		<script>
+			function reflect() {
+				for (i=1; i <= 9; i++){
+					if(document.cookie.includes('tanafes'+ i)){
+						var box = document.getElementById("panel" + i);
+						box.setAttribute("material", "opacity:0.9");
+					}
+				}
+			}
+		</script>
+	</body>
+</html>
