@@ -2,19 +2,27 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>stampcard_ar</title>
+		<title>arStampcard</title>
 		<script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
 		<script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.7.2/aframe/build/aframe-ar.js"></script>
 		<style>
 			.reflect{
-				position: absolute;
-				left:10px;
-				top:10px;
+				position: fixed;
+				left: 10%;
+				bottom: 10px;
+				height:30px;
+			}
+			.delete{
+				position: fixed;
+				left: 10%;
+				bottom: 50px;
+				height:30px;
 			}
 			.qr{
-				position: absolute;
-				left:70px;
-				top:10px;
+				position: fixed;
+				right: 10%;
+				bottom: 10px;
+				height:30px;
 			}
 		</style>
 	</head>
@@ -36,9 +44,9 @@
 			</a-marker>
 			<a-entity camera></a-entity>
 		</a-scene>
-
-		<button class="reflect" onclick="reflect()">反映</button>
-		<button class="qr" onclick="location.href='qrReader.html'">QRリーダー</button>
+		<button class="reflect" onclick="reflect()">cookieを反映</button>
+		<button class="delete" onclick="deleteCookie()">cookieを削除</button>
+		<button class="qr" onclick="location.href='qrReader.html'">QRリーダーを開く</button>
 
 		<script>
 			function reflect() {
@@ -46,6 +54,14 @@
 					if(document.cookie.includes('tanafes'+ i)){
 						var box = document.getElementById("panel" + i);
 						box.setAttribute("material", "opacity:0.9");
+					}
+				}
+			}
+
+			function deleteCookie() {
+				for (i=1; i <= 9; i++){
+					if(document.cookie.includes('tanafes'+ i)){
+						document.cookie = "tanafes" + i + "=; max-age=0";
 					}
 				}
 			}
